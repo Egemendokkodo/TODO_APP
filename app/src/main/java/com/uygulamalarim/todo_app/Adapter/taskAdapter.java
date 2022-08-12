@@ -78,12 +78,26 @@ public class taskAdapter extends RecyclerView.Adapter<taskAdapter.viewHolder> {
             threeDotMenu.setOnClickListener(this);
             checkBox=itemView.findViewById(R.id.checkBoxCompleted);
             
+            checkBox.setChecked(update("checkbox"));
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    saveIntoSharedPreferences("checkbox",isChecked);
                     checkBox.setTextColor(Color.GREEN);
                 }
             });
+        }
+
+        public void saveIntoSharedPreferences(String key, boolean value){
+            SharedPreferences sp=itemView.getContext().getSharedPreferences("ischecked",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sp.edit();
+            editor.putBoolean(key,value);
+            editor.apply();
+        }
+        private boolean update(String key){
+            SharedPreferences sp=itemView.getContext().getSharedPreferences("ischecked",Context.MODE_PRIVATE);
+            return sp.getBoolean(key,false);
+        }
         }
 
         @Override
