@@ -65,6 +65,7 @@ public class taskAdapter extends RecyclerView.Adapter<taskAdapter.viewHolder> {
 
     public class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
         TextView dateTime,title,description,deadline;
+        CheckBox checkBox;
 
 
         public viewHolder(@NonNull View itemView){
@@ -75,6 +76,14 @@ public class taskAdapter extends RecyclerView.Adapter<taskAdapter.viewHolder> {
             deadline=itemView.findViewById(R.id.deadlineLayout);
             threeDotMenu= itemView.findViewById(R.id.threeDotMenu);
             threeDotMenu.setOnClickListener(this);
+            checkBox=itemView.findViewById(R.id.checkBoxCompleted);
+            
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkBox.setTextColor(Color.GREEN);
+                }
+            });
         }
 
         @Override
